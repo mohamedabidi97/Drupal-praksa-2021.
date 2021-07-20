@@ -1,0 +1,12 @@
+name: cima
+type: theme
+description: 'A simple custom Template from scratch'
+core_version_requirement: ^8 || ^9
+# libraries:
+#   - fluffiness/global-styling
+base theme: classy
+regions:
+  header: Header
+  content: Content
+  sidebar_first: 'Sidebar first'
+  footer: Footer
