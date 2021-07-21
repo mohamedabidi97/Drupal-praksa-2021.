@@ -25,6 +25,7 @@
 /core
 /vendor
 /modules/README.txt
+/modules/contrib/twig_xdebug/README.txt
 /profiles/README.txt
 /themes/README.txt
 /sites/README.txt
