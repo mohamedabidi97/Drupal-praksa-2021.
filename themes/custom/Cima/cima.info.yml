@@ -2,11 +2,15 @@ name: cima
 type: theme
 description: 'A simple custom Template from scratch'
 core_version_requirement: ^8 || ^9
-# libraries:
-#   - fluffiness/global-styling
 base theme: classy
+
+# Regions
 regions:
   header: Header
   content: Content
-  sidebar_first: 'Sidebar first'
+  #sidebar_first: 'Sidebar first'
   footer: Footer
+# Assets
+libraries:
+   - cima/styling-css
+   - cime/styling-js
