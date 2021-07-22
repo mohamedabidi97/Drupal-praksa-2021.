@@ -3,7 +3,6 @@ type: theme
 description: 'A simple custom Template from scratch'
 core_version_requirement: ^8 || ^9
 base theme: classy
-
 # Regions
 regions:
   header: Header
@@ -14,3 +13,4 @@ regions:
 libraries:
    - cima/styling-css
    - cime/styling-js
+
