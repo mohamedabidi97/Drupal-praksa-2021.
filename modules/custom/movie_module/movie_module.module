@@ -1,0 +1,11 @@
+<?php
+/**
+* Implements hook_theme().
+*/
+function movie_module_theme() {
+return [
+'movie_page' => [
+'variables' => ['test_var' => NULL],
+],
+];
+}

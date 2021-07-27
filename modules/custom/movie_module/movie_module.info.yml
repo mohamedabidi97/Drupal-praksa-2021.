@@ -1,0 +1,7 @@
+name: Movie
+type: module
+description: 'Adds Movie content type.'
+core_version_requirement: ^8 || ^9
+package: Custom
+dependencies:
+  - node
