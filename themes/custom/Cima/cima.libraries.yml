@@ -1,0 +1,9 @@
+styling-css:
+  css:
+    theme: 
+      css/cima.css: {}
+styling-js:
+  js:
+    theme: 
+      js/cima.js: {}
+      
