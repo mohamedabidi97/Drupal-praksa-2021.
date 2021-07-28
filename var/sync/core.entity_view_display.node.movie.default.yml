@@ -1,0 +1,39 @@
+uuid: fc47400f-19e1-4867-8fed-edcdd421cdb2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.movie.field_description
+    - field.field.node.movie.field_image_movie
+    - node.type.movie
+  module:
+    - image
+    - text
+    - user
+id: node.movie.default
+targetEntityType: node
+bundle: movie
+mode: default
+content:
+  field_description:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_image_movie:
+    weight: 102
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

@@ -1,0 +1,20 @@
+uuid: 061f0c87-864f-4cdf-adc2-ba2616be632a
+langcode: en
+status: true
+dependencies:
+  theme:
+    - cima
+_core:
+  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
+id: cima_local_actions
+theme: cima
+region: content
+weight: -20
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

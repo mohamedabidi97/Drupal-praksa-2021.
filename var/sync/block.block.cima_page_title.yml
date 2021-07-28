@@ -1,0 +1,20 @@
+uuid: fecbd4cb-3b0e-48f1-be15-b79b9d4f263a
+langcode: en
+status: true
+dependencies:
+  theme:
+    - cima
+_core:
+  default_config_hash: 7rR9chwXvdM2H8OYMAYx9Zj3GGlPMrZp_M3ZA4thYTk
+id: cima_page_title
+theme: cima
+region: content
+weight: -50
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility: {  }

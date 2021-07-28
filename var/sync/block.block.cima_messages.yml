@@ -1,0 +1,22 @@
+uuid: 4d3adfc5-7dbd-4fca-a122-c53e4259c9e9
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - cima
+_core:
+  default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
+id: cima_messages
+theme: cima
+region: header
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }
