@@ -3,10 +3,7 @@
 /**
  * Implementing hook_theme().
  */
-
 function movie_module_theme($existing, $type, $theme, $path) {
-
-// Optionally define variables that will be passed to the Twig template and set default values for them.
   return array(
     'movie_list' => array(
       'variables' => array('items' => array(), 'title' => '')
