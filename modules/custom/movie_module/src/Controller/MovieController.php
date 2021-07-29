@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\movie_module\Controller;
+
 use Drupal\Core\Controller\ControllerBase;
 /**
  * An example controller.
@@ -15,9 +16,7 @@ class MovieController extends ControllerBase {
       array('name' => 'Movie four'),
     );
     return array(
-      // Your theme hook name.
       '#theme' => 'movie_list',
-      // Your variables.
       '#items' => $items,
       '#title' => 'Our movies list'
     );
