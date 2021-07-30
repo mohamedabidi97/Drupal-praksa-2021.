@@ -1,7 +1,0 @@
-movie_module.list:
-  path: '/movie'
-  defaults:
-    _controller: '\Drupal\movie_module\Controller\MovieController::list'
-    _title : "List of movies"
-  requirements:
-    _permission: 'access content'
