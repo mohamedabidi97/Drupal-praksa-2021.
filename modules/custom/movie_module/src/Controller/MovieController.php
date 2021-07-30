@@ -2,13 +2,12 @@
 
 namespace Drupal\movie_module\Controller;
 
-use Drupal\node\Entity\Node;
 use mysql_xdevapi\Exception;
+use function PHPUnit\Framework\throwException;
 
 /**
  * Render Title, Description, Image of movies
  */
-
 class MovieController
 {
   public function list(): array
@@ -20,13 +19,16 @@ class MovieController
         ->condition('status', 1)
         ->execute();
       $data = $query->loadMultiple($conditions);
-    } catch (Exception $e) {
-      echo 'Caught exception: ', $e->getMessage(), "\n";
+    } catch (\Exception $e) {
+      throwException($e);
     }
-    return array(
-      '#theme' => 'movie_list',
-      '#data' => $data
-    );
+    try {
+      return array(
+        '#theme' => 'movie_list',
+        '#data' => $data
+      );
+    } catch (\Exception $e) {
+      throwException($e);
+    }
   }
 }
-
