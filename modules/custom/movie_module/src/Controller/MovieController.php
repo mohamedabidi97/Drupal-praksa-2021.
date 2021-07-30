@@ -2,7 +2,6 @@
 
 namespace Drupal\movie_module\Controller;
 
-use mysql_xdevapi\Exception;
 use function PHPUnit\Framework\throwException;
 
 /**
