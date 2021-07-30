@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * Implementing hook_theme().
+ */
+
+function cima_movies_theme(): array
+{
+  return array(
+    'movie_list' => array(
+      'variables' => array('data' => array())
+    ),
+    'movie_reservation'=> array(
+      'variables' => array('text' =>'')
+)
+  );
+}
+
