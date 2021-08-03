@@ -3,7 +3,6 @@
 /**
  * Implementing hook_theme().
  */
-
 function movie_module_theme(): array
 {
   return array(
