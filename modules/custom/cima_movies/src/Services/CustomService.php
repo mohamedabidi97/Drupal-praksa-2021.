@@ -7,7 +7,6 @@ use function PHPUnit\Framework\throwException;
 /**
  * Class CustomService.
  */
-
 class CustomService
 {
   public function getServiceData($type)
