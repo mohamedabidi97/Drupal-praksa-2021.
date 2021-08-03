@@ -3,10 +3,11 @@
 /**
  * Implementing hook_theme().
  */
-function movie_module_theme($existing, $type, $theme, $path) {
+function movie_module_theme(): array
+{
   return array(
     'movie_list' => array(
-      'variables' => array('items' => array(), 'title' => '')
+      'variables' => array('data' => array())
     )
   );
 }

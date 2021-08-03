@@ -2,24 +2,32 @@
 
 namespace Drupal\movie_module\Controller;
 
-use Drupal\Core\Controller\ControllerBase;
+use function PHPUnit\Framework\throwException;
+
 /**
- * An example controller.
+ * Render Title, Description, Image of movies
  */
-class MovieController extends ControllerBase {
-
-  public function page() {
-    $items = array(
-      array('name' => 'Movie one'),
-      array('name' => 'Movie two'),
-      array('name' => 'Movie three'),
-      array('name' => 'Movie four'),
-    );
-    return array(
-      '#theme' => 'movie_list',
-      '#items' => $items,
-      '#title' => 'Our movies list'
-    );
+class MovieController
+{
+  public function list(): array
+  {
+    try {
+      $query = \Drupal::entityTypeManager()->getStorage('node');
+      $conditions = $query->getQuery()
+        ->condition('type', 'movie')
+        ->condition('status', 1)
+        ->execute();
+      $data = $query->loadMultiple($conditions);
+    } catch (\Exception $e) {
+      throwException($e);
+    }
+    try {
+      return array(
+        '#theme' => 'movie_list',
+        '#data' => $data
+      );
+    } catch (\Exception $e) {
+      throwException($e);
+    }
   }
-
 }
