@@ -1,0 +1,15 @@
+<h1>List of Movies</h1>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Image</th>
+  </tr>
+  {% for movie in data %}
+    <tr>
+      <td>{{movie.title.value}}</td>
+      <td>{{movie.field_description.value}}</td>
+      <td> <img src="{{file_url(movie.field_image_movie.entity.uri.value) }}"> </td>
+    </tr>
+  {% endfor %}
+</table>

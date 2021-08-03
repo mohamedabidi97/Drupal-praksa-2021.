@@ -1,0 +1,19 @@
+<table>
+
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Image</th>
+  </tr>
+  
+  {% for movie in data %}
+    {% set title = movie.title.value %}
+    {% set description = movie.field_description.value %}
+    {% set imageUrl = movie.field_image_movie.entity.uri.value %}
+    <tr>
+      <td>{{ title }}</td>
+      <td>{{ description }}</td>
+      <td><img src="{{ file_url(imageUrl) }}"></td>
+    </tr>
+  {% endfor %}
+</table>

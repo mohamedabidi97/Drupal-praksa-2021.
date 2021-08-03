@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * Implementing hook_theme().
+ */
+function movie_module_theme(): array
+{
+  return array(
+    'movie_list' => array(
+      'variables' => array('data' => array())
+    )
+  );
+}
