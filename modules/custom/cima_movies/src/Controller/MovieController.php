@@ -2,48 +2,60 @@
 
 namespace Drupal\cima_movies\Controller;
 
+use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use function PHPUnit\Framework\throwException;
 
-
-class MovieController
+class MovieController extends ControllerBase
 {
+
+  protected $fetchService;
+
+  public function __construct($fetchService)
+  {
+    $this->fetchService = $fetchService;
+  }
+
+  public static function create(ContainerInterface $container)
+  {
+    return new static($container->get('cima_movies.custom_services'));
+  }
+
   /**
    * Render Title, Description, Image of movies
    */
-
-  public function list(): array
+  public function list()
   {
+    $data = [];
     try {
-      $query = \Drupal::entityTypeManager()->getStorage('node');
-      $conditions = $query->getQuery()
-        ->condition('type', 'movie')
-        ->condition('status', 1)
-        ->execute();
-      $data = $query->loadMultiple($conditions);
-    } catch (\Exception $e) {
+      $data = $this->fetchService->getServiceData('movie');
+    } catch
+    (\Exception $e) {
       throwException($e);
     }
-
-    try {
-      return array(
-        '#theme' => 'movie_list',
-        '#data' => $data
-      );
-    } catch (\Exception $e) {
-      throwException($e);
-    }
+    return array(
+      '#theme' => 'movie_list',
+      '#data' => $data
+    );
   }
 
   /**
-   * Movies Reservation
+   * Render Title, Description, Image of movies
    */
-
-  public function reservation(): array
+  public function reservation()
   {
+    $data = [];
+    try {
+      $data = $this->fetchService->getServiceData('movie');
+    } catch
+    (\Exception $e) {
+      throwException($e);
+    }
     return array(
       '#theme' => 'movie_reservation',
-      '#text' => 'Hello from movies reservation'
+      '#data' => $data
     );
   }
+
 }
 
