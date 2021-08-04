@@ -10,7 +10,6 @@ class MovieController
   /**
    * Render Title, Description, Image of movies
    */
-
   public function list(): array
   {
     try {
