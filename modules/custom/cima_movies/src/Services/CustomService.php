@@ -1,18 +1,30 @@
 <?php
 
 namespace Drupal\cima_movies\Services;
-
-use function PHPUnit\Framework\throwException;
+use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class CustomService.
  */
 class CustomService
 {
+  protected $entityTypeManager;
+
+  public function __contruct($entityTypeManager)
+  {
+    $this->entityTypeManager = $entityTypeManager;
+  }
+
+  public static function create(ContainerInterface $container)
+  {
+    return new static($container->get('entity_type.manager'));
+  }
+
   public function getServiceData($type)
   {
     try {
-      $query = \Drupal::entityTypeManager()->getStorage('node');
+      $query = $this->entityTypeManager()->getStorage('node');
       $conditions = $query->getQuery()
         ->condition('type', $type)
         ->condition('status', 1)
@@ -22,7 +34,7 @@ class CustomService
         return $data;
       }
     } catch (\Exception $e) {
-      throwException($e);
+      throw new \Exception($e->getMessage());
     }
   }
 }
