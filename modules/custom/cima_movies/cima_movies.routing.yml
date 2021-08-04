@@ -10,6 +10,6 @@ cima_movies.reservation:
   path: '/movie-reservation'
   defaults:
     _controller: '\Drupal\cima_movies\Controller\MovieController::reservation'
-    _title : "Welcome to our movie reservation page"
+    _title : "Welcome to Our Movie Reservation Page"
   requirements:
     _permission: 'access content'

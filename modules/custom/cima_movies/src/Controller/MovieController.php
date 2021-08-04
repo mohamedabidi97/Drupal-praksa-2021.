@@ -42,14 +42,8 @@ class MovieController extends ControllerBase
    */
   public function reservation(): array
   {
-    try {
-      $data = $this->fetchService->getServiceData('movie');
-    } catch
-    (\Exception $e) {
-      throw new \Exception($e->getMessage());
     return array(
       '#theme' => 'movie_reservation',
-      '#data' => $data
     );
   }
 }

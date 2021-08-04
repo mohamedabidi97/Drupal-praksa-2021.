@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Implementing hook_theme().
+ * Implementing hook_theme()
  */
 function cima_movies_theme(): array
 {
