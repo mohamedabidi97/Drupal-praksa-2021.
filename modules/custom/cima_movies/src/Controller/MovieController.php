@@ -4,7 +4,6 @@ namespace Drupal\cima_movies\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use function PHPUnit\Framework\throwException;
 
 class MovieController extends ControllerBase
 {
@@ -31,7 +30,7 @@ class MovieController extends ControllerBase
       $data = $this->fetchService->getServiceData('movie');
     } catch
     (\Exception $e) {
-      throwException($e);
+      throw new \Exception($e->getMessage());
     }
     return array(
       '#theme' => 'movie_list',
@@ -49,7 +48,7 @@ class MovieController extends ControllerBase
       $data = $this->fetchService->getServiceData('movie');
     } catch
     (\Exception $e) {
-      throwException($e);
+      throw new \Exception($e->getMessage());
     }
     return array(
       '#theme' => 'movie_reservation',
