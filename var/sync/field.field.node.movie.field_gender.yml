@@ -10,8 +10,8 @@ id: node.movie.field_gender
 field_name: field_gender
 entity_type: node
 bundle: movie
-label: Gender
-description: ''
+label: Genre
+description: 'Add the movie gender'
 required: false
 translatable: false
 default_value: {  }
