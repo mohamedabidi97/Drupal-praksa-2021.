@@ -2,39 +2,40 @@
 
 namespace Drupal\cima_movies\Controller;
 
-use function PHPUnit\Framework\throwException;
-
-
-class MovieController
+use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+class MovieController extends ControllerBase
 {
-  /**
-   * Render Title, Description, Image of movies
-   */
 
-  public function list(): array
+  protected $fetchService;
+
+  public function __construct($fetchService)
   {
-    try {
-      $data = \Drupal::service('cima_movies.custom_services')->getServiceData('movie');
-      return array(
-        '#theme' => 'movie_list',
-        '#data' => $data
-      );
-    } catch (\Exception $e) {
-      throwException($e);
-    }
+    $this->fetchService = $fetchService;
+  }
+
+  public static function create(ContainerInterface $container)
+  {
+    return new static($container->get('cima_movies.custom_services'));
   }
 
   /**
-   * Movies Reservation
+   * Render Title, Description, Image of movies
    */
-
-  public function reservation(): array
+  public function list()
   {
-    $data = \Drupal::service('cima_movies.custom_services')->getServiceData('movie');
+    $data = [];
+    try {
+      $data = $this->fetchService->getServiceData('movie');
+    } catch
+    (\Exception $e) {
+      throw new \Exception($e->getMessage());
+    }
     return array(
-      '#theme' => 'movie_reservation',
+      '#theme' => 'movie_list',
       '#data' => $data
     );
   }
 }
+
 
