@@ -4,6 +4,7 @@ namespace Drupal\cima_movies\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
 class MovieController extends ControllerBase
 {
 
@@ -38,19 +39,22 @@ class MovieController extends ControllerBase
   }
 
   /**
-   * Movies Reservation
+   * Render Title, Description, Image of movies
    */
-  public function reservation(): array
+  public function reservation()
   {
+    $data = [];
     try {
       $data = $this->fetchService->getServiceData('movie');
     } catch
     (\Exception $e) {
       throw new \Exception($e->getMessage());
+    }
     return array(
       '#theme' => 'movie_reservation',
       '#data' => $data
     );
   }
+
 }
 
