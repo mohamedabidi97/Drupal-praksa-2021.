@@ -1,1 +1,7 @@
-<h1> {{ text }} </h1>
+<h2> Please select movie genre for which you would like to make a reservation: </h2>
+<select>
+  <option>Select A Movie</option>
+  {% for movie in data %}
+    <option >{{ movie.title.value }}</option>
+  {% endfor %}
+</select>

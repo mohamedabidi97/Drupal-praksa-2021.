@@ -1,0 +1,3 @@
+services:
+  cima_movies.custom_services:
+    class: Drupal\cima_movies\Services\CustomService
