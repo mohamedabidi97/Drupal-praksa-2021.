@@ -1,5 +1,5 @@
 name: Movie Module
-description: Creates a page for testing
+description: Cima movies module
 package: Custom
 type: module
 core_version_requirement: ^8 || ^9
