@@ -9,6 +9,9 @@ function cima_movies_theme(): array
     'movie_list' => array(
       'variables' => array('data' => array())
     ),
+    'movie_reservation' => array(
+      'variables' => array('data' => array())
+    )
   );
 }
 

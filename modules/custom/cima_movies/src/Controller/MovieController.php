@@ -36,6 +36,16 @@ class MovieController extends ControllerBase
       '#data' => $data
     );
   }
+
+  /**
+   * Movie reservation
+   */
+  public function reservation()
+  {
+    return array(
+      '#theme' => 'movie_reservation',
+    );
+  }
 }
 
 
