@@ -42,8 +42,8 @@ class MovieController extends ControllerBase
    */
   public function reservation()
   {
-    $taxonomy_data =[];
-    try{
+    $taxonomy_data = [];
+    try {
       $taxonomy_data = $this->$this->fetchService->getTaxonomyTerms('genre');
     } catch
     (\Exception $e) {
