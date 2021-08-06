@@ -37,4 +37,16 @@ class CustomService
       throw new \Exception($e->getMessage());
     }
   }
+  public function getTaxonomyTerms($vid)
+  {
+    try {
+      $data = $this->entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['vid' => $vid]);
+
+      if (!empty($data)) {
+        return $data;
+      }
+    } catch (\Exception $e) {
+      throw new \Exception($e->getMessage());
+    }
+  }
 }

@@ -24,26 +24,34 @@ class MovieController extends ControllerBase
    */
   public function list()
   {
-    $data = [];
+    $content_data = [];
     try {
-      $data = $this->fetchService->getServiceData('movie');
+      $content_data = $this->fetchService->getServiceData('movie');
     } catch
     (\Exception $e) {
       throw new \Exception($e->getMessage());
     }
     return array(
       '#theme' => 'movie_list',
-      '#data' => $data
+      '#data' => $content_data
     );
   }
 
   /**
-   * Movie reservation
+   * Render genre terms in Movie reservation
    */
   public function reservation()
   {
+    $taxonomy_data =[];
+    try{
+      $taxonomy_data = $this->$this->fetchService->getTaxonomyTerms('genre');
+    } catch
+    (\Exception $e) {
+      throw new \Exception($e->getMessage());
+    }
     return array(
       '#theme' => 'movie_reservation',
+      '#data' => $taxonomy_data
     );
   }
 }
