@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.movie.field_description
+    - field.field.node.movie.field_genre
     - field.field.node.movie.field_image_movie
     - image.style.thumbnail
     - node.type.movie
@@ -23,8 +24,18 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
+  field_genre:
+    weight: 26
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_image_movie:
-    weight: 2
+    weight: 3
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail

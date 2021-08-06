@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.movie.field_description
+    - field.field.node.movie.field_genre
     - field.field.node.movie.field_image_movie
     - node.type.movie
   module:
@@ -21,4 +22,5 @@ content:
     region: content
 hidden:
   field_description: true
+  field_genre: true
   field_image_movie: true
