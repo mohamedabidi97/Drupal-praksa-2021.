@@ -24,16 +24,16 @@ class MovieController extends ControllerBase
    */
   public function list()
   {
-    $content_data = [];
+    $contentData = [];
     try {
-      $content_data = $this->fetchService->getServiceData('movie');
+      $contentData = $this->fetchService->getServiceData('movie');
     } catch
     (\Exception $e) {
       throw new \Exception($e->getMessage());
     }
     return array(
       '#theme' => 'movie_list',
-      '#data' => $content_data
+      '#data' => $contentData
     );
   }
 
@@ -42,16 +42,16 @@ class MovieController extends ControllerBase
    */
   public function reservation()
   {
-    $taxonomy_data = [];
+    $taxonomyData = [];
     try {
-      $taxonomy_data = $this->$this->fetchService->getTaxonomyTerms('genre');
+      $taxonomyData = $this->$this->fetchService->getTaxonomyTerms('genre');
     } catch
     (\Exception $e) {
       throw new \Exception($e->getMessage());
     }
     return array(
       '#theme' => 'movie_reservation',
-      '#data' => $taxonomy_data
+      '#data' => $taxonomyData
     );
   }
 }
