@@ -30,7 +30,7 @@ class CustomService
         ->condition('status', 1)
         ->execute();
       $data = $query->loadMultiple($conditions);
-      return $data;
+      return !empty($data) ? $data : [];
     } catch (\Exception $e) {
       throw new \Exception($e->getMessage());
     }
@@ -39,7 +39,7 @@ class CustomService
   {
     try {
       $data = $this->entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['vid' => $vid]);
-      return $data;
+      return !empty($data) ? $data : [];
     } catch (\Exception $e) {
       throw new \Exception($e->getMessage());
     }
