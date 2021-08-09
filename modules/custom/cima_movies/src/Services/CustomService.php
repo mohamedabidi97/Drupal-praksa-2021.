@@ -30,9 +30,16 @@ class CustomService
         ->condition('status', 1)
         ->execute();
       $data = $query->loadMultiple($conditions);
-      if (!empty($data)) {
-        return $data;
-      }
+      return !empty($data) ? $data : [];
+    } catch (\Exception $e) {
+      throw new \Exception($e->getMessage());
+    }
+  }
+  public function getTaxonomyTerms($vid)
+  {
+    try {
+      $data = $this->entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['vid' => $vid]);
+      return !empty($data) ? $data : [];
     } catch (\Exception $e) {
       throw new \Exception($e->getMessage());
     }
