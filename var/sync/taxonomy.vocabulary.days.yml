@@ -1,0 +1,8 @@
+uuid: f211e57a-0125-4ba6-96aa-e58643585bf6
+langcode: en
+status: true
+dependencies: {  }
+name: Days
+vid: days
+description: 'Available days'
+weight: 0

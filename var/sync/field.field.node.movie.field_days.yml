@@ -1,0 +1,29 @@
+uuid: 67b3070f-c660-4156-9f72-71fa23d01a8e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_days
+    - node.type.movie
+    - taxonomy.vocabulary.days
+id: node.movie.field_days
+field_name: field_days
+entity_type: node
+bundle: movie
+label: Days
+description: 'Add available days of the movie'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      days: days
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
