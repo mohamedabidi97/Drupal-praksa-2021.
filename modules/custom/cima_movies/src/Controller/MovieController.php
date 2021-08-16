@@ -5,20 +5,25 @@ namespace Drupal\cima_movies\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class MovieController extends ControllerBase
 {
+  protected $fetchData;
+  public $request;
 
-  protected $fetchService;
-
-  public function __construct($fetchService)
+  public function __construct($fetchData, RequestStack $request)
   {
-    $this->fetchService = $fetchService;
+    $this->fetchData = $fetchData;
+    $this->request = $request;
   }
 
   public static function create(ContainerInterface $container)
   {
-    return new static($container->get('cima_movies.custom_services'));
+    return new static(
+      $container->get('cima_movies.custom_services'),
+      $container->get('request_stack')
+    );
   }
 
   /**
@@ -28,7 +33,7 @@ class MovieController extends ControllerBase
   {
     $contentData = [];
     try {
-      $contentData = $this->fetchService->getServiceData('movie');
+      $contentData = $this->fetchData->getServiceData('movie');
     } catch
     (\Exception $e) {
       throw new \Exception($e->getMessage());
@@ -44,25 +49,25 @@ class MovieController extends ControllerBase
    */
   public function reservation()
   {
-    $taxonomyData = $contentData = $listMovies =[];
-    $dataGenre = \Drupal::request()->query->get('genreSelected');
-    try {
-      $taxonomyData = $this->fetchData->getTaxonomyTerms('genre');
+    $allGenreTaxonomy = $contentData = $listMovies = [];
+    $dataGenre = $this->request->getCurrentRequest()->get('genreSelected');
+    try { 
+      $allGenreTaxonomy = $this->fetchData->getTaxonomyTerms('genre');
       if (empty($dataGenre)) {
         $listMovies = $this->fetchData->getServiceData('movie');
         return array(
           '#theme' => 'movie_reservation',
           '#movies' => $listMovies,
-          '#taxonomy' => $taxonomyData
+          '#taxonomy' => $allGenreTaxonomy
         );
       }
       $contentData = $this->fetchData->getMoviesGenre($dataGenre);
       if (empty($contentData)){
-        $contentData= $this->fetchData->getServiceData('movie');
+        $contentData = $this->fetchData->getServiceData('movie');
       }
       foreach ($contentData as $data) {
         $json[] = array(
-          'name' => $data->title->value,
+          'name' => $data->getTitle(),
           'description' => $data->field_description->value,
           'poster' => file_create_url($data ->field_image_movie->entity->getFileUri()),
           'days' => $this->fetchData->getNamebyId($data->get('field_days')->target_id),

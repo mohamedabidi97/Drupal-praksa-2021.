@@ -48,7 +48,7 @@ class CustomService
   {
     try {
       $data = $this->entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'movie', 'field_genre' => $genre]);
-      return !empty($data) ? $data : [];;
+      return !empty($data) ? $data : [];
     } catch (\Exception $e) {
       throw new \Exception($e->getMessage());
     }
