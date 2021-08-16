@@ -4,6 +4,8 @@ namespace Drupal\cima_movies\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 class MovieController extends ControllerBase
 {
 
@@ -42,17 +44,35 @@ class MovieController extends ControllerBase
    */
   public function reservation()
   {
-    $taxonomyData = [];
+    $taxonomyData = $contentData = $listMovies =[];
+    $dataGenre = \Drupal::request()->query->get('genreSelected');
     try {
-      $taxonomyData = $this->$this->fetchService->getTaxonomyTerms('genre');
-    } catch
-    (\Exception $e) {
+      $taxonomyData = $this->fetchData->getTaxonomyTerms('genre');
+      if (empty($dataGenre)) {
+        $listMovies = $this->fetchData->getServiceData('movie');
+        return array(
+          '#theme' => 'movie_reservation',
+          '#movies' => $listMovies,
+          '#taxonomy' => $taxonomyData
+        );
+      }
+      $contentData = $this->fetchData->getMoviesGenre($dataGenre);
+      if (empty($contentData)){
+        $contentData= $this->fetchData->getServiceData('movie');
+      }
+      foreach ($contentData as $data) {
+        $json[] = array(
+          'name' => $data->title->value,
+          'description' => $data->field_description->value,
+          'poster' => file_create_url($data ->field_image_movie->entity->getFileUri()),
+          'days' => $this->fetchData->getNamebyId($data->get('field_days')->target_id),
+          'genre' => $this->fetchData->getNamebyId($data->get('field_genre')->target_id)
+        );
+      }
+      return new JsonResponse($json);
+    } catch (\Exception $e) {
       throw new \Exception($e->getMessage());
     }
-    return array(
-      '#theme' => 'movie_reservation',
-      '#data' => $taxonomyData
-    );
   }
 }
 

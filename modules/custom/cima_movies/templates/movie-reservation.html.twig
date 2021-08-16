@@ -1,7 +1,102 @@
-<h2> Please select movie genre for which you would like to make a reservation: </h2>
+{{ attach_library('cima_movies/global-css') }}
+<h2> Please select movie genre for which you would like to make a reservation: </h2><br>
 <select>
-  <option>Select A Genre</option>
-  {% for genre in data %}
-    <option>{{ genre.name.value }}</option>
+  <option disabled selected>Select A Genre</option>
+  {% for genre in taxonomy %}
+    <option value={{ genre.id }}>{{ genre.name.value }}</option>
   {% endfor %}
-</select>
+</select><br>
+<table id="listTable">
+  <tr id='firstRow'>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Image</th>
+    <th>Genre</th>
+    <th>Availability</th>
+  </tr>
+  {% for movie in movies %}
+    {% set title = movie.title.value %}
+    {% set description = movie.field_description.value %}
+    {% set imageUrl = movie.field_image_movie.entity.uri.value %}
+
+    <tr>
+      <td>{{ title }}</td>
+      <td>{{ description }}</td>
+      <td><img src="{{ file_url(imageUrl) }}"></td>
+      <td>
+        {% for genre in movie.field_genre %}
+          {{ genre.entity.label }}
+        {% endfor %}
+      </td>
+      <td>
+        {% for day in movie.field_days %}
+          {{ day.entity.label }}
+        {% endfor %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+  function editContent() {
+    $('#listTable tr').click(function () {
+      if ($(this).hasClass('selected')) {
+        $('#btn').remove();
+        $('#res').remove();
+        $(this).removeClass('selected');
+      } else {
+        $('#listTable tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+        $('#firstRow').append("<th id='res'>Reservation</th>")
+        $(this).append("<td id='btn'><button>Reserve</button></td>");
+        $(this).css('background', 'blue');
+      }
+    });
+  }
+
+  var json = {};
+  editContent();
+  let select = $('select');
+  select.change(function () {
+    $.ajax({
+      url: '/movie-reservation?genreSelected=' + select.val(),
+      type: 'POST',
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function (response) {
+        json = response;
+        $('#listTable').find('tr').eq(0).nextAll().empty(); // Table  emptied from the second row after changing response
+        console.log(json);
+        $.each(json, function (i, item) {
+          $('#listTable').append("<tr><td>" + item.name + "</td><td>" + item.description + "</td><td><img src=' " + item.poster + "'></td><td>" + item.genre + "</td><td>" + item.days + "</td></tr>");
+        });
+      },
+      complete: function () {
+        editContent();
+      },
+      error: function (req, err) {
+        alert('Error : Failed to retrieve data - Error details :' + err);
+      }
+    })
+  })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

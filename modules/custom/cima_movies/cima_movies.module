@@ -10,7 +10,7 @@ function cima_movies_theme(): array
       'variables' => array('data' => array())
     ),
     'movie_reservation' => array(
-      'variables' => array('data' => array())
+      'variables' => array('taxonomy' => array(), 'movies' => array())
     )
   );
 }
