@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class MovieController extends ControllerBase
 {
   protected $fetchData;
-  public $request;
+  protected $request;
 
   public function __construct($fetchData, $request)
   {
