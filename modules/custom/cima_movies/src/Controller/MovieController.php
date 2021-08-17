@@ -12,7 +12,7 @@ class MovieController extends ControllerBase
   protected $fetchData;
   public $request;
 
-  public function __construct($fetchData, RequestStack $request)
+  public function __construct($fetchData, $request)
   {
     $this->fetchData = $fetchData;
     $this->request = $request;
@@ -22,7 +22,7 @@ class MovieController extends ControllerBase
   {
     return new static(
       $container->get('cima_movies.custom_services'),
-      $container->get('request_stack')
+      $container->get('request_stack')->getCurrentRequest()
     );
   }
 
@@ -50,7 +50,7 @@ class MovieController extends ControllerBase
   public function reservation()
   {
     $allGenreTaxonomy = $contentData = $listMovies = [];
-    $dataGenre = $this->request->getCurrentRequest()->get('genreSelected');
+    $dataGenre = $this->request->get('genreSelected');
     try { 
       $allGenreTaxonomy = $this->fetchData->getTaxonomyTerms('genre');
       if (empty($dataGenre)) {

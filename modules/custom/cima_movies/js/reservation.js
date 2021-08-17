@@ -18,7 +18,7 @@
       });
     }
   
-    var json = {};
+    let json = {};
     editContent();
     let select = $('select');
     select.change(function () {
@@ -32,7 +32,10 @@
           $('#listTable').find('tr').eq(0).nextAll().empty(); // Table  emptied from the second row after changing response
           console.log(json);
           $.each(json, function (i, item) {
-            $('#listTable').append("<tr><td>" + item.name + "</td><td>" + item.description + "</td><td><img src=' " + item.poster + "'></td><td>" + item.genre + "</td><td>" + item.days + "</td></tr>");
+            $('#listTable').append("<tr><td>" + item.name + "</td>" +
+              "<td>" + item.description + "</td>" +
+              "<td><img src=' " + item.poster + "'></td><td>"
+              + item.genre + "</td><td>" + item.days + "</td></tr>");
           });
         },
         complete: function () {
