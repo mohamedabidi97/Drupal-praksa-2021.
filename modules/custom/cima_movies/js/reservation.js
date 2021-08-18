@@ -13,7 +13,7 @@
             $('#listTable tr.selected').removeClass('selected');
             $(this).addClass('selected');
             $('#firstRow').append("<th id='res'>Reservation</th>")
-            $(this).append("<td id='btn'><button>Reserve</button></td>");
+            $(this).append("<td ><button class='btn'>Reserve</button></td>");
             $(this).css('background', 'blue');
             }}
         });
