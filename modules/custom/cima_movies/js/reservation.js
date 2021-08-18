@@ -20,7 +20,7 @@
   
     let json = {};
     editContent();
-    let select = $('select');
+    var select = $('select');
     select.change(function () {
       $.ajax({
         url: '/movie-reservation?genreSelected=' + select.val(),
