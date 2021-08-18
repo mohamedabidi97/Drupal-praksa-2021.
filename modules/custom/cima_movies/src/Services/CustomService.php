@@ -44,4 +44,23 @@ class CustomService
       throw new \Exception($e->getMessage());
     }
   }
+  public function getMoviesGenre($genre)
+  {
+    try {
+      $data = $this->entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'movie', 'field_genre' => $genre]);
+      return !empty($data) ? $data : [];
+    } catch (\Exception $e) {
+      throw new \Exception($e->getMessage());
+    }
+  }
+
+  public function getNamebyId($id)
+  {
+    try {
+      $term = $this->entityTypeManager->getStorage('taxonomy_term')->load($id);
+      return !empty($term) ? $term->getName() : [];
+    } catch (\Exception $e) {
+      throw new \Exception($e->getMessage());
+    }
+  }
 }

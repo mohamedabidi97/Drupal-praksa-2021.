@@ -3,3 +3,5 @@ description: Cima movies module
 package: Custom
 type: module
 core_version_requirement: ^8 || ^9
+libraries:
+  - Movie Module/global-styling

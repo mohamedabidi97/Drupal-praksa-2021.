@@ -1,7 +1,39 @@
-<h2> Please select movie genre for which you would like to make a reservation: </h2>
+{{ attach_library('cima_movies/global-css') }}
+<h2> Please select movie genre for which you would like to make a reservation: </h2><br>
 <select>
-  <option>Select A Genre</option>
-  {% for genre in data %}
-    <option>{{ genre.name.value }}</option>
+  <option disabled selected>Select A Genre</option>
+  {% for genre in taxonomy %}
+    <option value={{ genre.id }}>{{ genre.name.value }}</option>
   {% endfor %}
-</select>
+</select><br>
+<table id="listTable">
+  <tr id='firstRow'>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Image</th>
+    <th>Genre</th>
+    <th>Availability</th>
+  </tr>
+  {% for movie in movies %}
+    {% set title = movie.title.value %}
+    {% set description = movie.field_description.value %}
+    {% set imageUrl = movie.field_image_movie.entity.uri.value %}
+
+    <tr>
+      <td>{{ title }}</td>
+      <td>{{ description }}</td>
+      <td><img src="{{ file_url(imageUrl) }}"></td>
+      <td>
+        {% for genre in movie.field_genre %}
+          {{ genre.entity.label }}
+        {% endfor %}
+      </td>
+      <td>
+        {% for day in movie.field_days %}
+          {{ day.entity.label }}
+        {% endfor %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

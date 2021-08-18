@@ -1,0 +1,9 @@
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+  js:
+    js/reservation.js: {}
+  dependencies:
+    - core/jquery
+
