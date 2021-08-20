@@ -11,18 +11,21 @@ class MovieController extends ControllerBase
 {
   protected $fetchData;
   protected $request;
+  protected $database;
 
-  public function __construct($fetchData, $request)
+  public function __construct($fetchData, $request, $database)
   {
     $this->fetchData = $fetchData;
     $this->request = $request;
+    $this->database = $database;
   }
 
   public static function create(ContainerInterface $container)
   {
     return new static(
       $container->get('cima_movies.custom_services'),
-      $container->get('request_stack')->getCurrentRequest()
+      $container->get('request_stack')->getCurrentRequest(),
+      $container->get('database')
     );
   }
 
@@ -45,11 +48,29 @@ class MovieController extends ControllerBase
   }
 
   /**
-   * Render genre terms in Movie reservation
+   *  Movie reservation
    */
   public function reservation()
   {
     $allGenreTaxonomy = $contentData = $listMovies = [];
+    $reservation = $this->request->get('reservation');
+    if (!empty($reservation)) {
+      $timeOfReservation = date('Y-m-d H:i:s');
+      $decodedReservation = json_decode($reservation, false);
+      try {
+        $this->database->insert('Reservations')
+          ->fields([
+            'day_of_reservation' => $decodedReservation->day_of_reservation,
+            'time_of_reservation' => $timeOfReservation,
+            'reserved_movie_name' => $decodedReservation->reserved_movie_name,
+            'reserved_movie_genre' => $decodedReservation->reserved_movie_genre,
+            'customer_name' => $decodedReservation->customer_name
+          ])
+          ->execute();
+      } catch (\Exception $e) {
+        throw new \Exception($e->getMessage());
+      }
+    }
     $dataGenre = $this->request->get('genreSelected');
     try { 
       $allGenreTaxonomy = $this->fetchData->getTaxonomyTerms('genre');

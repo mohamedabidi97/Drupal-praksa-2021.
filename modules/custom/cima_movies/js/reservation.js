@@ -1,7 +1,7 @@
 (function ($) {
 
     function editContent() {
-      $('#listTable tr').click(function () {
+      $('#listTable tr').click(function (e) {
         if (!$(e.target).is('button')) { // Make a difference between the click on the row and the button
             if ($(this).hasClass('selected')) { 
             $('#btn').remove();
@@ -21,9 +21,11 @@
 
     function popup() {
         let days = [];
+        let reservationData = {};
         $("#listTable,.modal").on('click', '.btn', function click(e) {
           let currentRow = $(this).closest("tr");
           let availableDays = currentRow.find("td:eq(4)").text().trim().replace(/ /g, '').split("\n"); // Remove spaces and Split the text to an array of days
+          let genre = currentRow.find("td:eq(3)").text().trim().replace(/\n/g, '');   // Remove spaces and '\n' from the string
           let movieName = currentRow.find("td:eq(0)").text();
           $('.days').empty();
           $('#movieName').text(movieName);
@@ -32,13 +34,34 @@
             $('.days').append("<button class='available'>" + item + "</button>")
           });
           $(".available").click(function () {
+            let customerName = $('.customer').val();
             $('.confirm').html("<button>Confirm your movie reservation</button>");
+            reservationData = {
+                day_of_reservation: $(this).text(),
+                reserved_movie_name : movieName,
+                reserved_movie_genre : genre,
+                customer_name : customerName
+              };
+          });
+          $('#confirm').click(function () {
+            $.ajax({
+              type: "POST",
+              url: '/movie-reservation',
+              data: {'reservation': JSON.stringify(reservationData) },
+              success: function () {
+                $('.confirmed').html("<h2>Reservation confirmed</h2>")
+              },
+              error: function (req, err) {
+                alert('Error : Failed to retrieve data - Error details :' + err);
+              }
+            });
           });
         });
       }
   
     let json = {};
     editContent();
+    popup();
     const select = $('select');
     select.change(function () {
       $.ajax({
@@ -49,7 +72,6 @@
         success: function (response) {
           json = response;
           $('#listTable').find('tr').eq(0).nextAll().empty(); // Table  emptied from the second row after changing response
-          console.log(json);
           $.each(json, function (i, item) {
             $('#listTable').append("<tr><td>" + item.name + "</td>" +
               "<td>" + item.description + "</td>" +
