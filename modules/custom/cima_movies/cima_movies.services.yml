@@ -1,3 +1,6 @@
 services:
   cima_movies.custom_services:
     class: Drupal\cima_movies\Services\CustomService
+  cima_movies.database_service:
+    class: Drupal\contact_form\Services\DatabaseService
+    arguments: [ '@database' ]
