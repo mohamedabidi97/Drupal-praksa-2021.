@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.movie.field_description
     - field.field.node.movie.field_genre
     - field.field.node.movie.field_image_movie
+    - field.field.node.movie.field_include_in_exporter
     - node.type.movie
   module:
     - user
@@ -26,3 +27,4 @@ hidden:
   field_description: true
   field_genre: true
   field_image_movie: true
+  field_include_in_exporter: true
