@@ -8,7 +8,7 @@ use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
-class movieExporter extends FormBase
+class MovieExporter extends FormBase
 {
   protected $fetchData;
 
@@ -27,19 +27,6 @@ class movieExporter extends FormBase
   public function getFormId()
   {
     return 'cima_movies';
-  }
-
-  public function buildRow(Node $data)
-  {
-    $data = [
-      'name' => $data->getTitle(),
-      'description' => $data->field_description->value,
-      'poster' => file_create_url($data->field_image_movie->entity->getFileUri()),
-      'days' => $this->fetchData->getNamebyId($data->get('field_days')->target_id),
-      'genre' => $this->fetchData->getNamebyId($data->get('field_genre')->target_id)
-    ];
-
-    return $data;
   }
 
   public function buildForm(array $form, FormStateInterface $form_state)

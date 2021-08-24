@@ -13,11 +13,11 @@ cima_movies.movie_reservation:
     _title: "Welcome to our movie reservation page"
   requirements:
     _permission: 'access content'
-    
+
 cima_movies.movie-exporter:
   path: '/movie-exporter'
   defaults:
-    _form: '\Drupal\cima_movies\Form\movieExporter'
+    _form: '\Drupal\cima_movies\Form\MovieExporter'
     _title: 'Export movies list'
   requirements:
     _permission: 'access administration pages'
