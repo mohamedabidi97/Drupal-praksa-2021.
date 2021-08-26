@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.movie.field_description
     - field.field.node.movie.field_genre
     - field.field.node.movie.field_image_movie
+    - field.field.node.movie.field_include_in_exporter
     - node.type.movie
   module:
     - image
@@ -48,6 +49,16 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
+  field_include_in_exporter:
+    weight: 105
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   links:
     weight: 100

@@ -35,6 +35,23 @@ class CustomService
       throw new \Exception($e->getMessage());
     }
   }
+
+  public function getIncludedMovies()
+  {
+    try {
+      $query = $this->entityTypeManager()->getStorage('node');
+      $conditions = $query->getQuery()
+        ->condition('type', 'movie')
+        ->condition('field_include_in_exporter', 1)
+        ->condition('status', 1)
+        ->execute();
+      $data = $query->loadMultiple($conditions);
+      return !empty($data) ? $data : [];
+    } catch (\Exception $e) {
+      throw new \Exception($e->getMessage());
+    }
+  }
+
   public function getTaxonomyTerms($vid)
   {
     try {
@@ -44,6 +61,7 @@ class CustomService
       throw new \Exception($e->getMessage());
     }
   }
+  
   public function getMoviesGenre($genre)
   {
     try {

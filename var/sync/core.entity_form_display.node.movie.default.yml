@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.movie.field_description
     - field.field.node.movie.field_genre
     - field.field.node.movie.field_image_movie
+    - field.field.node.movie.field_include_in_exporter
     - image.style.thumbnail
     - node.type.movie
   module:
@@ -52,6 +53,13 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
+  field_include_in_exporter:
+    weight: 28
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   title:
     type: string_textfield
